@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BalanceX Productos</title>
+  <style>
+    body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+    .producto { background: white; border-radius: 10px; padding: 15px; margin: 10px 0; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .titulo { font-weight: bold; font-size: 18px; margin-bottom: 5px; }
+    .precio { color: green; font-size: 16px; }
+    .boton { background: #007bff; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Catálogo de Productos BalanceX</h1>
+  <div id="contenedor-productos">Cargando productos...</div>
+
+  <script>
+    fetch("https://script.google.com/macros/s/AKfycbwXsf6ujyWDNxF7QMi4whAqfKA8_IxbisA5tfKvtmPRpRffJAi6KPJ0X1l71IALliKn/exec")
+      .then(res => res.json())
+      .then(data => {
+        const contenedor = document.getElementById("contenedor-productos");
+        contenedor.innerHTML = "";
+
+        data.forEach(producto => {
+          if (producto[9] === "Activo") {  // Columna Estado
+            contenedor.innerHTML += `
+              <div class="producto">
+                <div class="titulo">${producto[1]}</div>
+                <div>Categoría: ${producto[2]}</div>
+                <div class="precio">Precio: $${producto[5]}</div>
+                <div>${producto[11]}</div> <!-- Descripción -->
+                <a class="boton" href="${producto[12]}" target="_blank">Comprar ahora</a>
+              </div>
+            `;
+          }
+        });
+      })
+      .catch(err => {
+        document.getElementById("contenedor-productos").innerText = "Error al cargar productos.";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
