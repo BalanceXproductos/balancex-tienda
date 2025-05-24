@@ -4,48 +4,115 @@
   <meta charset="UTF-8">
   <title>BalanceX Productos</title>
   <style>
-    body { font-family: Arial; background: #f2f2f2; padding: 20px; }
-    .producto { background: white; border-radius: 10px; padding: 15px; margin: 10px 0; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    .titulo { font-weight: bold; font-size: 18px; margin-bottom: 5px; }
-    .precio { color: green; font-size: 16px; }
-    .boton { background: #007bff; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 8px; }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #121212; /* Fondo oscuro */
+      color: #e0e0e0;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #FFD700; /* Dorado */
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .producto-card {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      border: 1px solid #FFD70033;
+      transition: transform 0.3s;
+    }
+    .producto-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(255, 215, 0, 0.2);
+    }
+    .producto-card h3 {
+      color: #FFD700;
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+    .producto-info {
+      margin: 10px 0;
+    }
+    .precio {
+      color: #4CAF50;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .boton-comprar {
+      display: inline-block;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #121212;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: all 0.3s;
+    }
+    .boton-comprar:hover {
+      background: linear-gradient(135deg, #FFA500, #FFD700);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    .categoria {
+      background: #FFD70022;
+      color: #FFD700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
   <h1>Catálogo de Productos BalanceX</h1>
-  <div id="productos-container"></div>
+  <div id="productos-container" class="productos-grid"></div>
 
   <script>
     fetch('productos.json?v=' + new Date().getTime())
-  .then(response => {
-    if (!response.ok) {
-      throw new Error("¡Ups! No encontré el archivo JSON. ¿Está bien escrito?");
-    }
-    return response.json();
-  })
-  .then(productos => {
-    const contenedor = document.getElementById('productos-container');
-    if (!contenedor) {
-      console.error("¡No hay un div con id='productos-container' en tu HTML!");
-      return;
-    }
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("¡Error al cargar los productos!");
+        }
+        return response.json();
+      })
+      .then(productos => {
+        const contenedor = document.getElementById('productos-container');
+        if (!contenedor) {
+          console.error("No se encontró el contenedor de productos");
+          return;
+        }
 
-    contenedor.innerHTML = ''; // Limpia antes de agregar
-    productos.forEach(producto => {
-      contenedor.innerHTML += `
-        <div class="producto-card" style="border: 1px solid #ddd; padding: 10px; margin: 10px;">
-          <h3>${producto.nombre}</h3>
-          <p><strong>Categoría:</strong> ${producto.categoria}</p>
-          <p><strong>Precio:</strong> $${producto.precio_final.toFixed(2)}</p>
-          <a href="${producto.enlace}" target="_blank" style="color: gold; text-decoration: none;">🛒 ¡Comprar!</a>
-        </div>
-      `;
-    });
-  })
-  .catch(error => {
-    console.error("Error grave:", error);
-    alert("¡Algo salió mal! Abre la consola (F12) para ver el error.");
-  });
+        contenedor.innerHTML = productos.map(producto => `
+          <div class="producto-card">
+            <span class="categoria">${producto.categoria}</span>
+            <h3>${producto.nombre}</h3>
+            <div class="producto-info">
+              <p class="precio">$${producto.precio_final.toFixed(2)}</p>
+              <a href="${producto.enlace}" target="_blank" class="boton-comprar">🛒 Comprar Ahora</a>
+            </div>
+          </div>
+        `).join('');
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        document.getElementById('productos-container').innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; color: #ff4444;">
+            <h3>¡Oops! Algo salió mal</h3>
+            <p>No pudimos cargar los productos. Por favor intenta más tarde.</p>
+            <small>${error.message}</small>
+          </div>
+        `;
+      });
   </script>
 </body>
 </html>
