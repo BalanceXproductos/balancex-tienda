@@ -146,37 +146,22 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // URL de tu archivo JSON (asegúrate que es la correcta)
+      // URL del JSON con timestamp para evitar caché
       const jsonUrl = 'productos.json?v=' + new Date().getTime();
       
-      fetch('./productos.json')
-  .then(response => response.json())
-  .then(data => {
-    document.getElementById('productos-container').innerHTML = data.map(p => `
-      <div class="producto">
-        <h3>${p.nombre}</h3>
-        <p>$${p.precio}</p>
-        <a href="${p.enlace}">Comprar</a>
-      </div>
-    `).join('');
-  });
+      fetch(jsonUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error HTTP! estado: ${response.status}`);
+          }
+          return response.json();
         })
-        .catch(error => {
-          console.error('Error al cargar productos:', error);
-          document.getElementById('productos-container').innerHTML = `
-            <div class="error-message">
-              <h3>¡Error al cargar los productos!</h3>
-              <p>${error.message}</p>
-              <p>Por favor verifica:</p>
-              <ul>
-                <li>Que el archivo productos.json existe</li>
-                <li>Que tiene la estructura correcta</li>
-                <li>Que estás conectado a internet</li>
-              </ul>
-            </div>
-          `;
-        });
-    });
-  </script>
-</body>
-</html>
+        .then(productos => {
+          const contenedor = document.getElementById('productos-container');
+          
+          if (!productos || productos.length === 0) {
+            contenedor.innerHTML = `
+              <div class="error-message">
+                <h3>No hay productos disponibles</h3>
+                <p>Por favor intenta más tarde</p>
+              </
