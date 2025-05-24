@@ -2,117 +2,213 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BalanceX Productos</title>
   <style>
+    :root {
+      --color-primary: #FFD700;
+      --color-secondary: #121212;
+      --color-accent: #4CAF50;
+      --color-text: #e0e0e0;
+      --color-card: #1e1e1e;
+    }
+    
     body {
       font-family: 'Arial', sans-serif;
-      background: #121212; /* Fondo oscuro */
-      color: #e0e0e0;
+      background-color: var(--color-secondary);
+      color: var(--color-text);
       padding: 20px;
       max-width: 1200px;
       margin: 0 auto;
+      line-height: 1.6;
     }
-    h1 {
-      color: #FFD700; /* Dorado */
+    
+    header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      border-bottom: 2px solid var(--color-primary);
+      padding-bottom: 20px;
     }
+    
+    h1 {
+      color: var(--color-primary);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
     .productos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 10px;
     }
+    
     .producto-card {
-      background: #1e1e1e;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      border: 1px solid #FFD70033;
-      transition: transform 0.3s;
+      background-color: var(--color-card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--color-primary);
     }
+    
     .producto-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(255, 215, 0, 0.2);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
     }
-    .producto-card h3 {
-      color: #FFD700;
-      margin-top: 0;
-      font-size: 1.2rem;
+    
+    .producto-imagen {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      background: #000;
+      border-bottom: 1px solid var(--color-primary);
     }
-    .producto-info {
-      margin: 10px 0;
+    
+    .producto-contenido {
+      padding: 15px;
     }
-    .precio {
-      color: #4CAF50;
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-    .boton-comprar {
+    
+    .producto-categoria {
       display: inline-block;
-      background: linear-gradient(135deg, #FFD700, #FFA500);
-      color: #121212;
-      padding: 10px 15px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: all 0.3s;
-    }
-    .boton-comprar:hover {
-      background: linear-gradient(135deg, #FFA500, #FFD700);
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    }
-    .categoria {
-      background: #FFD70022;
-      color: #FFD700;
-      padding: 3px 8px;
-      border-radius: 4px;
+      background-color: rgba(255, 215, 0, 0.1);
+      color: var(--color-primary);
+      padding: 4px 10px;
+      border-radius: 20px;
       font-size: 0.8rem;
-      display: inline-block;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .producto-nombre {
+      font-size: 1.1rem;
+      margin: 10px 0;
+      color: var(--color-primary);
+      min-height: 60px;
+    }
+    
+    .producto-precio {
+      font-size: 1.3rem;
+      color: var(--color-accent);
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    
+    .producto-boton {
+      display: block;
+      text-align: center;
+      background: linear-gradient(135deg, var(--color-primary), #FFA500);
+      color: var(--color-secondary);
+      padding: 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      margin-top: 15px;
+    }
+    
+    .producto-boton:hover {
+      background: linear-gradient(135deg, #FFA500, var(--color-primary));
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+    
+    .loading {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--color-primary);
+      padding: 50px;
+    }
+    
+    .error-message {
+      grid-column: 1/-1;
+      text-align: center;
+      color: #ff4444;
+      padding: 40px;
+      background: rgba(255, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      .productos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Catálogo de Productos BalanceX</h1>
-  <div id="productos-container" class="productos-grid"></div>
+  <header>
+    <h1>BalanceX Productos</h1>
+    <p>Tu tienda de productos automatizados</p>
+  </header>
+  
+  <div id="productos-container" class="productos-grid">
+    <div class="loading">Cargando productos...</div>
+  </div>
 
   <script>
-    fetch('productos.json?v=' + new Date().getTime())
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("¡Error al cargar los productos!");
-        }
-        return response.json();
-      })
-      .then(productos => {
-        const contenedor = document.getElementById('productos-container');
-        if (!contenedor) {
-          console.error("No se encontró el contenedor de productos");
-          return;
-        }
-
-        contenedor.innerHTML = productos.map(producto => `
-          <div class="producto-card">
-            <span class="categoria">${producto.categoria}</span>
-            <h3>${producto.nombre}</h3>
-            <div class="producto-info">
-              <p class="precio">$${producto.precio_final.toFixed(2)}</p>
-              <a href="${producto.enlace}" target="_blank" class="boton-comprar">🛒 Comprar Ahora</a>
+    document.addEventListener('DOMContentLoaded', function() {
+      // URL de tu archivo JSON (asegúrate que es la correcta)
+      const jsonUrl = 'productos.json?v=' + new Date().getTime();
+      
+      fetch(jsonUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error HTTP! estado: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(productos => {
+          const contenedor = document.getElementById('productos-container');
+          
+          if (!productos || productos.length === 0) {
+            contenedor.innerHTML = `
+              <div class="error-message">
+                <h3>No hay productos disponibles</h3>
+                <p>Por favor intenta más tarde o verifica tu archivo JSON.</p>
+              </div>
+            `;
+            return;
+          }
+          
+          contenedor.innerHTML = productos.map(producto => {
+            // Formatear el precio
+            const precioFormateado = parseFloat(producto['Precio final (USD)']).toFixed(2);
+            
+            // Obtener la URL de la imagen (usando el campo correcto de tu JSON)
+            const imagenUrl = producto['URL de imagen'] || 'https://via.placeholder.com/220x220?text=Imagen+no+disponible';
+            
+            // Obtener el enlace de afiliado
+            const enlaceAfiliado = producto['Enlace de afiliado'] || producto['URL del producto'] || '#';
+            
+            return `
+              <div class="producto-card">
+                <img src="${imagenUrl}" alt="${producto['Nombre del producto']}" class="producto-imagen" 
+                     onerror="this.src='https://via.placeholder.com/220x220?text=Imagen+no+disponible'">
+                <div class="producto-contenido">
+                  <span class="producto-categoria">${producto.Categoría || 'Electrónica'}</span>
+                  <h3 class="producto-nombre">${producto['Nombre del producto']}</h3>
+                  <div class="producto-precio">$${precioFormateado}</div>
+                  <a href="${enlaceAfiliado}" target="_blank" class="producto-boton">🛒 Comprar Ahora</a>
+                </div>
+              </div>
+            `;
+          }).join('');
+        })
+        .catch(error => {
+          console.error('Error al cargar productos:', error);
+          document.getElementById('productos-container').innerHTML = `
+            <div class="error-message">
+              <h3>¡Error al cargar los productos!</h3>
+              <p>${error.message}</p>
+              <p>Por favor verifica:</p>
+              <ul>
+                <li>Que el archivo productos.json existe</li>
+                <li>Que tiene la estructura correcta</li>
+                <li>Que estás conectado a internet</li>
+              </ul>
             </div>
-          </div>
-        `).join('');
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        document.getElementById('productos-container').innerHTML = `
-          <div style="grid-column: 1/-1; text-align: center; color: #ff4444;">
-            <h3>¡Oops! Algo salió mal</h3>
-            <p>No pudimos cargar los productos. Por favor intenta más tarde.</p>
-            <small>${error.message}</small>
-          </div>
-        `;
-      });
+          `;
+        });
+    });
   </script>
 </body>
 </html>
