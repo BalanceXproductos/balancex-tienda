@@ -16,30 +16,36 @@
   <div id="contenedor-productos">Cargando productos...</div>
 
   <script>
-    fetch("https://script.google.com/macros/s/AKfycbwXsf6ujyWDNxF7QMi4whAqfKA8_IxbisA5tfKvtmPRpRffJAi6KPJ0X1l71IALliKn/exec")
-      .then(res => res.json())
-      .then(data => {
-        const contenedor = document.getElementById("contenedor-productos");
-        contenedor.innerHTML = "";
+    fetch('productos.json?v=' + new Date().getTime())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("¡Ups! No encontré el archivo JSON. ¿Está bien escrito?");
+    }
+    return response.json();
+  })
+  .then(productos => {
+    const contenedor = document.getElementById('productos-container');
+    if (!contenedor) {
+      console.error("¡No hay un div con id='productos-container' en tu HTML!");
+      return;
+    }
 
-        data.forEach(producto => {
-          if (producto[9] === "Activo") {  // Columna Estado
-            contenedor.innerHTML += `
-              <div class="producto">
-                <div class="titulo">${producto[1]}</div>
-                <div>Categoría: ${producto[2]}</div>
-                <div class="precio">Precio: $${producto[5]}</div>
-                <div>${producto[11]}</div> <!-- Descripción -->
-                <a class="boton" href="${producto[12]}" target="_blank">Comprar ahora</a>
-              </div>
-            `;
-          }
-        });
-      })
-      .catch(err => {
-        document.getElementById("contenedor-productos").innerText = "Error al cargar productos.";
-        console.error(err);
-      });
+    contenedor.innerHTML = ''; // Limpia antes de agregar
+    productos.forEach(producto => {
+      contenedor.innerHTML += `
+        <div class="producto-card" style="border: 1px solid #ddd; padding: 10px; margin: 10px;">
+          <h3>${producto.nombre}</h3>
+          <p><strong>Categoría:</strong> ${producto.categoria}</p>
+          <p><strong>Precio:</strong> $${producto.precio_final.toFixed(2)}</p>
+          <a href="${producto.enlace}" target="_blank" style="color: gold; text-decoration: none;">🛒 ¡Comprar!</a>
+        </div>
+      `;
+    });
+  })
+  .catch(error => {
+    console.error("Error grave:", error);
+    alert("¡Algo salió mal! Abre la consola (F12) para ver el error.");
+  });
   </script>
 </body>
 </html>
