@@ -1,9 +1,16 @@
 [
   {
-    "Nombre del producto": "Auriculares Lenovo XT89",
-    "Categoría": "Electrónica",
-    "Precio final (USD)": 15.90,
-    "Enlace de afiliado": "https://es.aliexpress.com/item/1005008896546569.html?gatewayAdapt=glo2esp",
-    "URL de imagen": "https://ae-pic-a1.aliexpress-media.com/kf/Sde935a0ed444448bafa902b8db48e1far.jpg_220x220q75.jpg_.avif"
+    "nombre": "Auriculares Lenovo XT89",
+    "precio": 15.90,
+    "categoria": "Electrónica",
+    "enlace": "https://afiliado.com/ejemplo1",
+    "imagen": "https://ejemplo.com/imagen1.jpg"
+  },
+  {
+    "nombre": "Reloj Inteligente",
+    "precio": 29.99,
+    "categoria": "Tecnología",
+    "enlace": "https://afiliado.com/ejemplo2",
+    "imagen": "https://ejemplo.com/imagen2.jpg"
   }
 ]
