@@ -149,27 +149,17 @@
       // URL de tu archivo JSON (asegúrate que es la correcta)
       const jsonUrl = 'productos.json?v=' + new Date().getTime();
       
-      fetch(jsonUrl)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Error HTTP! estado: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(productos => {
-  const contenedor = document.getElementById('productos-container');
-  contenedor.innerHTML = productos.map(producto => `
-    <div class="producto-card">
-      <!-- ... (otros elementos) ... -->
-      <a href="${producto['Enlace de afiliado'] || producto['URL del producto']}" 
-         target="_blank" 
-         rel="noopener noreferrer"
-         class="producto-boton"
-         onclick="trackClick('${producto['Nombre del producto']}')">
-        🛒 Comprar Ahora
-      </a>
-    </div>
-  `).join('');
+      fetch('./productos.json')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('productos-container').innerHTML = data.map(p => `
+      <div class="producto">
+        <h3>${p.nombre}</h3>
+        <p>$${p.precio}</p>
+        <a href="${p.enlace}">Comprar</a>
+      </div>
+    `).join('');
+  });
         })
         .catch(error => {
           console.error('Error al cargar productos:', error);
