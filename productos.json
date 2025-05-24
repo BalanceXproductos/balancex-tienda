@@ -6,13 +6,5 @@
     "URL del producto": "https://ejemplo.com/producto1",
     "Enlace de afiliado": "https://afiliado.com/producto1",
     "URL de imagen": "https://ejemplo.com/imagen1.jpg"
-  },
-  {
-    "Nombre del producto": "Mouse inalámbrico",
-    "Categoría": "Electrónica",
-    "Precio final (USD)": 8.99,
-    "URL del producto": "https://ejemplo.com/producto2",
-    "Enlace de afiliado": "https://afiliado.com/producto2",
-    "URL de imagen": "https://ejemplo.com/imagen2.jpg"
   }
 ]
