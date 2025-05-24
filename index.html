@@ -157,41 +157,19 @@
           return response.json();
         })
         .then(productos => {
-          const contenedor = document.getElementById('productos-container');
-          
-          if (!productos || productos.length === 0) {
-            contenedor.innerHTML = `
-              <div class="error-message">
-                <h3>No hay productos disponibles</h3>
-                <p>Por favor intenta más tarde o verifica tu archivo JSON.</p>
-              </div>
-            `;
-            return;
-          }
-          
-          contenedor.innerHTML = productos.map(producto => {
-            // Formatear el precio
-            const precioFormateado = parseFloat(producto['Precio final (USD)']).toFixed(2);
-            
-            // Obtener la URL de la imagen (usando el campo correcto de tu JSON)
-            const imagenUrl = producto['URL de imagen'] || 'https://via.placeholder.com/220x220?text=Imagen+no+disponible';
-            
-            // Obtener el enlace de afiliado
-            const enlaceAfiliado = producto['Enlace de afiliado'] || producto['URL del producto'] || '#';
-            
-            return `
-              <div class="producto-card">
-                <img src="${imagenUrl}" alt="${producto['Nombre del producto']}" class="producto-imagen" 
-                     onerror="this.src='https://via.placeholder.com/220x220?text=Imagen+no+disponible'">
-                <div class="producto-contenido">
-                  <span class="producto-categoria">${producto.Categoría || 'Electrónica'}</span>
-                  <h3 class="producto-nombre">${producto['Nombre del producto']}</h3>
-                  <div class="producto-precio">$${precioFormateado}</div>
-                  <a href="${enlaceAfiliado}" target="_blank" class="producto-boton">🛒 Comprar Ahora</a>
-                </div>
-              </div>
-            `;
-          }).join('');
+  const contenedor = document.getElementById('productos-container');
+  contenedor.innerHTML = productos.map(producto => `
+    <div class="producto-card">
+      <!-- ... (otros elementos) ... -->
+      <a href="${producto['Enlace de afiliado'] || producto['URL del producto']}" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="producto-boton"
+         onclick="trackClick('${producto['Nombre del producto']}')">
+        🛒 Comprar Ahora
+      </a>
+    </div>
+  `).join('');
         })
         .catch(error => {
           console.error('Error al cargar productos:', error);
