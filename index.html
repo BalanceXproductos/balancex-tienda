@@ -147,28 +147,42 @@
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     const contenedor = document.getElementById('productos-container');
+    // Usa esta URL (la misma que verificaste)
     const jsonUrl = 'https://raw.githubusercontent.com/BalanceXProductos/balancex-tienda/main/productos.json';
+    
+    // Muestra carga mientras busca los productos
+    contenedor.innerHTML = '<div class="loading">Cargando productos...</div>';
     
     fetch(jsonUrl)
       .then(response => {
-        if (!response.ok) throw new Error('El archivo JSON no se encontró (Error 404)');
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         return response.json();
       })
       .then(productos => {
+        if (!productos || !Array.isArray(productos)) {
+          throw new Error('Formato de JSON inválido');
+        }
+        
         contenedor.innerHTML = productos.map(p => `
           <div class="producto-card">
-            <h3>${p.nombre}</h3>
-            <p>Precio: $${p.precio.toFixed(2)}</p>
-            <a href="${p.enlace}" target="_blank">Comprar</a>
+            ${p.imagen ? `<img src="${p.imagen}" class="producto-imagen" alt="${p.nombre}">` : ''}
+            <div class="producto-contenido">
+              <span class="producto-categoria">${p.categoria || 'General'}</span>
+              <h3 class="producto-nombre">${p.nombre}</h3>
+              <p class="producto-precio">$${Number(p.precio).toFixed(2)}</p>
+              <a href="${p.enlace}" target="_blank" class="producto-boton">🛒 Comprar</a>
+            </div>
           </div>
         `).join('');
       })
       .catch(error => {
+        console.error('Error:', error);
         contenedor.innerHTML = `
-          <div style="color: red; padding: 20px; text-align: center;">
-            <h3>¡Error!</h3>
+          <div class="error-message">
+            <h3>¡Error al cargar productos!</h3>
             <p>${error.message}</p>
-            <p>Verifica que la URL sea correcta: <br> ${jsonUrl}</p>
+            <p>URL usada: <code>${jsonUrl}</code></p>
+            <button onclick="location.reload()">↻ Reintentar</button>
           </div>
         `;
       });
