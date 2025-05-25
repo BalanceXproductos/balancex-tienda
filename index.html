@@ -164,16 +164,16 @@
         }
         
         contenedor.innerHTML = productos.map(p => `
-          <div class="producto-card">
-            ${p.imagen ? `<img src="${p.imagen}" class="producto-imagen" alt="${p.nombre}">` : ''}
-            <div class="producto-contenido">
-              <span class="producto-categoria">${p.categoria || 'General'}</span>
-              <h3 class="producto-nombre">${p.nombre}</h3>
-              <p class="producto-precio">$${Number(p.precio).toFixed(2)}</p>
-              <a href="${p.enlace}" target="_blank" class="producto-boton">🛒 Comprar</a>
-            </div>
-          </div>
-        `).join('');
+  <div class="producto-card">
+    ${p.imagen ? `<img src="${p.imagen}" class="producto-imagen" alt="${p.nombre}" onerror="this.style.display='none'">` : ''}
+    <div class="producto-contenido">
+      <span class="producto-categoria">${p.categoria || 'General'}</span>
+      <h3 class="producto-nombre">${p.nombre}</h3>
+      <p class="producto-precio">$${Number(p.precio).toFixed(2)}</p>
+      <a href="${p.enlace}" target="_blank" class="producto-boton">🛒 Comprar</a>
+    </div>
+  </div>
+`).join('');;
       })
       .catch(error => {
         console.error('Error:', error);
