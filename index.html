@@ -145,23 +145,32 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // URL del JSON con timestamp para evitar caché
-      const jsonUrl = 'productos.json?v=' + new Date().getTime();
-      
-      fetch(jsonUrl)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Error HTTP! estado: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(productos => {
-          const contenedor = document.getElementById('productos-container');
-          
-          if (!productos || productos.length === 0) {
-            contenedor.innerHTML = `
-              <div class="error-message">
-                <h3>No hay productos disponibles</h3>
-                <p>Por favor intenta más tarde</p>
-              </
+  document.addEventListener('DOMContentLoaded', () => {
+    const contenedor = document.getElementById('productos-container');
+    const jsonUrl = 'https://raw.githubusercontent.com/BalanceXProductos/balancex-tienda/main/productos.json';
+    
+    fetch(jsonUrl)
+      .then(response => {
+        if (!response.ok) throw new Error('El archivo JSON no se encontró (Error 404)');
+        return response.json();
+      })
+      .then(productos => {
+        contenedor.innerHTML = productos.map(p => `
+          <div class="producto-card">
+            <h3>${p.nombre}</h3>
+            <p>Precio: $${p.precio.toFixed(2)}</p>
+            <a href="${p.enlace}" target="_blank">Comprar</a>
+          </div>
+        `).join('');
+      })
+      .catch(error => {
+        contenedor.innerHTML = `
+          <div style="color: red; padding: 20px; text-align: center;">
+            <h3>¡Error!</h3>
+            <p>${error.message}</p>
+            <p>Verifica que la URL sea correcta: <br> ${jsonUrl}</p>
+          </div>
+        `;
+      });
+  });
+</script>
