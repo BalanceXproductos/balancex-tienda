@@ -20,5 +20,12 @@
     "enlace_afiliado": "https://afiliado.com/producto/53833",
     "enlace_producto": "https://es.aliexpress.com/item/1005006216527530.html",
     "estado": "Activo"
-  }
+  },
+  {
+  "nombre": "Calefactor Portátil 1500W",
+  "precio": 16.80,
+  "categoria": "Invierno",
+  "imagen": "https://i.imgur.com/calefactor.jpg",
+  "enlace": "https://aliexpress.com/item/calefactor..."
+}
 ]
