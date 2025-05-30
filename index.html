@@ -2,189 +2,36 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BalanceX Productos</title>
+  <title>BalanceX - Tecnología al Mejor Precio</title>
   <style>
-    :root {
-      --color-primary: #FFD700;
-      --color-secondary: #121212;
-      --color-accent: #4CAF50;
-      --color-text: #e0e0e0;
-      --color-card: #1e1e1e;
-    }
-    
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: var(--color-secondary);
-      color: var(--color-text);
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-    
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-      border-bottom: 2px solid var(--color-primary);
-      padding-bottom: 20px;
-    }
-    
-    h1 {
-      color: var(--color-primary);
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-    
-    .productos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
-      padding: 10px;
-    }
-    
-    .producto-card {
-      background-color: var(--color-card);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 1px solid var(--color-primary);
-    }
-    
-    .producto-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
-    }
-    
-    .producto-imagen {
-      width: 100%;
-      height: 220px;
-      object-fit: contain;
-      background: #000;
-      border-bottom: 1px solid var(--color-primary);
-    }
-    
-    .producto-contenido {
-      padding: 15px;
-    }
-    
-    .producto-categoria {
-      display: inline-block;
-      background-color: rgba(255, 215, 0, 0.1);
-      color: var(--color-primary);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      margin-bottom: 10px;
-    }
-    
-    .producto-nombre {
-      font-size: 1.1rem;
-      margin: 10px 0;
-      color: var(--color-primary);
-      min-height: 60px;
-    }
-    
-    .producto-precio {
-      font-size: 1.3rem;
-      color: var(--color-accent);
-      font-weight: bold;
-      margin: 15px 0;
-    }
-    
-    .producto-boton {
-      display: block;
-      text-align: center;
-      background: linear-gradient(135deg, var(--color-primary), #FFA500);
-      color: var(--color-secondary);
-      padding: 10px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s;
-      margin-top: 15px;
-    }
-    
-    .producto-boton:hover {
-      background: linear-gradient(135deg, #FFA500, var(--color-primary));
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-    }
-    
-    .loading {
-      text-align: center;
-      font-size: 1.2rem;
-      color: var(--color-primary);
-      padding: 50px;
-    }
-    
-    .error-message {
-      grid-column: 1/-1;
-      text-align: center;
-      color: #ff4444;
-      padding: 40px;
-      background: rgba(255, 0, 0, 0.1);
-      border-radius: 10px;
-    }
-    
-    @media (max-width: 768px) {
-      .productos-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      }
-    }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+    .producto { background: white; border-radius: 10px; padding: 15px; margin: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .boton { background: #0066ff; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px; }
+    #productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+    img { width: 100%; border-radius: 5px; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>BalanceX Productos</h1>
-    <p>Tu tienda de productos automatizados</p>
-  </header>
-  
-  <div id="productos-container" class="productos-grid">
-    <div class="loading">Cargando productos...</div>
-  </div>
+  <h1>🔥 BalanceX - Los Mejores Precios 🔥</h1>
+  <div id="productos"></div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const contenedor = document.getElementById('productos-container');
-    // Usa esta URL (la misma que verificaste)
-    const jsonUrl = 'https://raw.githubusercontent.com/BalanceXProductos/balancex-tienda/main/productos.json';
-    
-    // Muestra carga mientras busca los productos
-    contenedor.innerHTML = '<div class="loading">Cargando productos...</div>';
-    
-    fetch(jsonUrl)
-      .then(response => {
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        return response.json();
-      })
+    fetch('productos_balancex.json')
+      .then(response => response.json())
       .then(productos => {
-        if (!productos || !Array.isArray(productos)) {
-          throw new Error('Formato de JSON inválido');
-        }
-        
-        contenedor.innerHTML = productos.map(p => `
-  <div class="producto-card">
-    ${p.imagen ? `<img src="${p.imagen}" class="producto-imagen" alt="${p.nombre}" onerror="this.style.display='none'">` : ''}
-    <div class="producto-contenido">
-      <span class="producto-categoria">${p.categoria || 'General'}</span>
-      <h3 class="producto-nombre">${p.nombre}</h3>
-      <p class="producto-precio">$${Number(p.precio).toFixed(2)}</p>
-      <a href="${p.enlace}" target="_blank" class="producto-boton">🛒 Comprar</a>
-    </div>
-  </div>
-`).join('');;
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        contenedor.innerHTML = `
-          <div class="error-message">
-            <h3>¡Error al cargar productos!</h3>
-            <p>${error.message}</p>
-            <p>URL usada: <code>${jsonUrl}</code></p>
-            <button onclick="location.reload()">↻ Reintentar</button>
-          </div>
-        `;
+        const container = document.getElementById('productos');
+        productos.forEach(producto => {
+          container.innerHTML += `
+            <div class="producto">
+              <img src="${producto.imagen}" alt="${producto.nombre}">
+              <h3>${producto.nombre}</h3>
+              <p>Categoría: ${producto.categoria}</p>
+              <p>Precio: <strong>S/${producto.precio}</strong></p>
+              <a href="${producto.enlace || '#'}" class="boton">COMPRAR AHORA</a>
+            </div>
+          `;
+        });
       });
-  });
-</script>
+  </script>
+</body>
+</html>
