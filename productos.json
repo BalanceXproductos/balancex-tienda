@@ -3,21 +3,24 @@
     "nombre": "Auriculares Lenovo XT89",
     "categoria": "Electrónica",
     "precio": 25.31,
-    "imagen": "https://ae-pic-a1.aliexpress-media.com/...jpg",
-    "enlace": "https://afiliado.com/producto/53835"
+    "imagen_avif": "https://ae-pic-a1.aliexpress-media.com/kf/Sde935a0ed444448bafa902b8db48e1far.jpg_220x220q75.jpg_.avif",
+    "imagen_jpg": "https://ae-pic-a1.aliexpress-media.com/kf/Sde935a0ed444448bafa902b8db48e1far.jpg_220x220q75.jpg",
+    "enlace_afiliado": "https://afiliado.com/producto/53835"
   },
   {
     "nombre": "Reloj Inteligente",
     "categoria": "Tecnología",
     "precio": 68.73,
-    "imagen": "https://ae-pic-a1.aliexpress-media.com/...jpg",
-    "enlace": "https://afiliado.com/producto/53833"
+    "imagen_avif": "https://ae-pic-a1.aliexpress-media.com/kf/Se7f4bd6578944943b201df1536991ec79.jpg_220x220q75.jpg_.avif",
+    "imagen_jpg": "https://ae-pic-a1.aliexpress-media.com/kf/Se7f4bd6578944943b201df1536991ec79.jpg_220x220q75.jpg",
+    "enlace_afiliado": "https://afiliado.com/producto/53833"
   },
   {
     "nombre": "Calefactor Portátil 1500W",
     "categoria": "Invierno",
-    "precio": 16.80,
-    "imagen": "https://i.imgur.com/calefactor.jpg",
-    "enlace": "https://aliexpress.com/item/calefactor..."
+    "precio": 145.46,
+    "imagen_avif": "https://ae-pic-a1.aliexpress-media.com/kf/S2cc4c992fc5544eea9440a97cf8f04d3c.png_220x220.png_.avif",
+    "imagen_jpg": "https://ae-pic-a1.aliexpress-media.com/kf/S2cc4c992fc5544eea9440a97cf8f04d3c.png_220x220.png",
+    "enlace_afiliado": ""
   }
 ]
