@@ -1,26 +1,62 @@
-[
-  {
-    "nombre": "Auriculares Lenovo XT89",
-    "categoria": "Electrónica",
-    "precio": 25.31,
-    "imagen_avif": "https://ae-pic-a1.aliexpress-media.com/kf/Sde935a0ed444448bafa902b8db48e1far.jpg_220x220q75.jpg_.avif",
-    "imagen_jpg": "https://ae-pic-a1.aliexpress-media.com/kf/Sde935a0ed444448bafa902b8db48e1far.jpg_220x220q75.jpg",
-    "enlace_afiliado": "https://afiliado.com/producto/53835"
-  },
-  {
-    "nombre": "Reloj Inteligente",
-    "categoria": "Tecnología",
-    "precio": 68.73,
-    "imagen_avif": "https://ae-pic-a1.aliexpress-media.com/kf/Se7f4bd6578944943b201df1536991ec79.jpg_220x220q75.jpg_.avif",
-    "imagen_jpg": "https://ae-pic-a1.aliexpress-media.com/kf/Se7f4bd6578944943b201df1536991ec79.jpg_220x220q75.jpg",
-    "enlace_afiliado": "https://afiliado.com/producto/53833"
-  },
-  {
-    "nombre": "Calefactor Portátil 1500W",
-    "categoria": "Invierno",
-    "precio": 145.46,
-    "imagen_avif": "https://ae-pic-a1.aliexpress-media.com/kf/S2cc4c992fc5544eea9440a97cf8f04d3c.png_220x220.png_.avif",
-    "imagen_jpg": "https://ae-pic-a1.aliexpress-media.com/kf/S2cc4c992fc5544eea9440a97cf8f04d3c.png_220x220.png",
-    "enlace_afiliado": ""
+{
+  "productos": [
+    {
+      "id": "lenovo-xt88",
+      "nombre": "Auriculares Lenovo XT88",
+      "categoria": "Electrónica",
+      "precio": 12.59,
+      "precio_original": 8.99,
+      "margen": 0.4,
+      "imagen": "https://imgaz1.staticbg.com/thumb/gallery/oaupload/banggood/images/E8/EE/0d4ed0a9-98e4-423f-88f2-3cdc6d5b8c2c.jpg.webp",
+      "imagen_avif": "https://imgaz1.staticbg.com/thumb/gallery/oaupload/banggood/images/E8/EE/0d4ed0a9-98e4-423f-88f2-3cdc6d5b8c2c.avif",
+      "enlace_afiliado": "https://usa.banggood.com/es/search/auriculares-lenovo-xt88.html?p=N5012177744992202506&custlinkid=4725268",
+      "enlace_final": "https://bit.ly/3xYzZ1", // Ejemplo de enlace acortado
+      "stock": 19,
+      "estado": "Activo",
+      "actualizado": "2025-05-18",
+      "warehouse": "CN",
+      "envio": "Gratis"
+    },
+    {
+      "id": "reloj-ecg",
+      "nombre": "Reloj Inteligente con ECG",
+      "categoria": "Tecnología",
+      "precio": 30.79,
+      "precio_original": 21.99,
+      "margen": 0.4,
+      "imagen": "https://imgaz1.staticbg.com/thumb/large/oaupload/banggood/images/D8/A9/83d5bdb9-3aac-4c1c-9b36-25b2f6fb7c0b.jpg.webp",
+      "imagen_avif": "https://imgaz1.staticbg.com/thumb/large/oaupload/banggood/images/D8/A9/83d5bdb9-3aac-4c1c-9b36-25b2f6fb7c0b.avif",
+      "enlace_afiliado": "https://usa.banggood.com/es/E600-1_47-inch-HD-Screen-ECG-Monitor-Heart-Rate-Blood-Pressure-SpO2-Monitor-Fitness-Tracker-160mAh-Battery-BT5_1-IP68-Waterproof-Smart-Watch-p-1981381.html?cur_warehouse=CN&ID=529069&rmmds=search&p=N5012177744992202506&custlinkid=4725267",
+      "enlace_final": "https://bit.ly/3xYzZ2",
+      "stock": 23,
+      "estado": "Activo",
+      "actualizado": "2025-05-18",
+      "warehouse": "CN",
+      "envio": "Express"
+    },
+    {
+      "id": "calefactor-1500w",
+      "nombre": "Calefactor Portátil 1500W",
+      "categoria": "Invierno",
+      "precio": 53.19,
+      "precio_original": 37.99,
+      "margen": 0.4,
+      "imagen": "https://imgaz.staticbg.com/thumb/large/oaupload/banggood/images/CB/73/e3543c93-a7aa-4514-80b3-836c4a616877.jpeg.webp",
+      "imagen_avif": "https://imgaz.staticbg.com/thumb/large/oaupload/banggood/images/CB/73/e3543c93-a7aa-4514-80b3-836c4a616877.avif",
+      "enlace_afiliado": "https://usa.banggood.com/es/1500W-Remote-Control-Space-Heater-3-Gear-PTC-Ceramic-Heating-Long-Range-Remote-Adjustable-Thermostat-Compact-Electric-Heater-for-Home-Office-p-2020259.html?cur_warehouse=CN&ID=6296615&rmmds=search&p=N5012177744992202506&custlinkid=4725266",
+      "enlace_final": "https://bit.ly/3xYzZ3",
+      "stock": 51,
+      "estado": "Activo",
+      "actualizado": "2025-05-18",
+      "warehouse": "CN",
+      "envio": "Gratis"
+    }
+  ],
+  "meta": {
+    "ultima_actualizacion": "2025-05-18T17:52:34Z",
+    "total_productos": 3,
+    "categorias": ["Electrónica", "Tecnología", "Invierno"],
+    "moneda": "USD",
+    "plataforma": "Banggood"
   }
-]
+}
