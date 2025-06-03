@@ -3,79 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda BalanceX</title>
+  <title>TIENDA BALANCEX</title>
   <style>
-    /* Estilos premium (negro/dorado) */
+    :root {
+      --color-primario: #121212;
+      --color-secundario: #d4af37;
+      --color-texto: #e0e0e0;
+    }
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
+      background: var(--color-primario);
+      color: var(--color-texto);
       margin: 0;
       padding: 20px;
     }
     .producto {
       background: #1e1e1e;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      margin: 20px;
+      border: 1px solid var(--color-secundario);
       padding: 20px;
-      max-width: 300px;
+      margin: 15px;
       display: inline-block;
-      border: 1px solid #d4af37;
+      width: 280px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
     .producto img {
       width: 100%;
       border-radius: 8px;
-      border: 1px solid #d4af37;
-    }
-    .precio {
-      color: #d4af37;
-      font-weight: bold;
-      font-size: 1.2em;
+      border: 1px solid var(--color-secundario);
     }
     .btn-comprar {
-      background: #d4af37;
-      color: #121212;
-      border: none;
+      background: var(--color-secundario);
+      color: var(--color-primario);
       padding: 10px 20px;
+      text-decoration: none;
       border-radius: 5px;
-      cursor: pointer;
+      display: inline-block;
       margin-top: 10px;
       font-weight: bold;
+    }
+    .error {
+      color: #ff4444;
+      padding: 20px;
+      border: 1px dashed #ff4444;
     }
   </style>
 </head>
 <body>
-  <h1 style="color: #d4af37; text-align: center;">TIENDA BALANCEX</h1>
+  <h1 style="text-align: center; color: var(--color-secundario);">TIENDA BALANCEX</h1>
   <div id="productos-container"></div>
 
-  <!-- Script para cargar productos desde JSON -->
-<!-- REEMPLAZA ESTE SCRIPT EN TU index.html -->
-<script>
-  fetch('https://raw.githubusercontent.com/BalanceXproductos/balancex-tienda/main/data.json')
-    .then(response => {
-      if (!response.ok) throw new Error("Archivo no encontrado");
-      return response.json();
-    })
-    .then(data => {
-      const container = document.getElementById('productos-container');
-      container.innerHTML = data.productos.map(producto => `
-        <div class="producto">
-          <img src="${producto.imagen}" alt="${producto.nombre}">
-          <h3>${producto.nombre}</h3>
-          <p class="precio">$${producto.precio} USD</p>
-          <a href="${producto.enlace}" target="_blank" class="btn-comprar">COMPRAR AHORA</a>
-        </div>
-      `).join('');
-    })
-    .catch(error => {
-      console.error(error);
-      document.getElementById('productos-container').innerHTML = `
-        <div class="error">
-          <p>⚠️ Error crítico: ${error.message}</p>
-          <p>Contacta al equipo técnico con este código:</p>
-          <code>${btoa(error.stack)}</code>
-        </div>
-      `;
+  <script>
+    // Carga segura con control de errores
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('data.json?t=' + Date.now());
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        
+        const data = await response.json();
+        const container = document.getElementById('productos-container');
+        
+        container.innerHTML = data.productos.map(producto => `
+          <div class="producto">
+            <h2>${producto.nombre}</h2>
+            <img src="${producto.imagen}" alt="${producto.nombre}" 
+                 onerror="this.src='https://via.placeholder.com/300x300?text=Imagen+no+disponible'">
+            <p>$${producto.precio_final} USD <small>($${producto.precio_original} + ${producto.margen*100}% margen)</small></p>
+            <p>Stock: ${producto.stock} unidades</p>
+            <a href="${producto.enlace_afiliado}" class="btn-comprar" target="_blank">COMPRAR AHORA</a>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error("Error crítico:", error);
+        document.getElementById('productos-container').innerHTML = `
+          <div class="error">
+            <h3>⚠️ Error al cargar productos</h3>
+            <p>Detalle técnico: ${error.message}</p>
+            <p>Verifica que el archivo <code>data.json</code> exista en el servidor.</p>
+          </div>
+        `;
+      }
     });
-</script>
+  </script>
+</body>
+</html>
