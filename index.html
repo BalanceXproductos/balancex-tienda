@@ -52,36 +52,30 @@
   <!-- Script para cargar productos desde JSON -->
 <!-- REEMPLAZA ESTE SCRIPT EN TU index.html -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    fetch('./data.json?v=' + Date.now())  // ¡Cache-busting agregado!
-      .then(response => {
-        if (!response.ok) throw new Error("Error 404: Archivo no encontrado");
-        return response.json();
-      })
-      .then(data => {
-        const container = document.getElementById('productos-container');
-        container.innerHTML = data.productos.map(producto => `
-          <div class="producto">
-            <img src="${producto.imagen}" alt="${producto.nombre}" 
-                 onerror="this.onerror=null; this.src='${producto.imagen.replace('.webp','.jpg')}'">
-            <h3>${producto.nombre}</h3>
-            <p class="precio">$${producto.precio} USD</p>
-            <a href="${producto.enlace}" target="_blank" class="btn-comprar">COMPRAR AHORA</a>
-          </div>
-        `).join('');
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        document.getElementById('productos-container').innerHTML = `
-          <div class="error">
-            <p>⚠️ Error al cargar productos. Verifica:</p>
-            <ul>
-              <li>Que el archivo <code>data.json</code> exista</li>
-              <li>Que la URL sea correcta</li>
-            </ul>
-            <button onclick="location.reload()">↻ Recargar Página</button>
-          </div>
-        `;
-      });
-  });
+  fetch('https://raw.githubusercontent.com/BalanceXproductos/balancex-tienda/main/data.json')
+    .then(response => {
+      if (!response.ok) throw new Error("Archivo no encontrado");
+      return response.json();
+    })
+    .then(data => {
+      const container = document.getElementById('productos-container');
+      container.innerHTML = data.productos.map(producto => `
+        <div class="producto">
+          <img src="${producto.imagen}" alt="${producto.nombre}">
+          <h3>${producto.nombre}</h3>
+          <p class="precio">$${producto.precio} USD</p>
+          <a href="${producto.enlace}" target="_blank" class="btn-comprar">COMPRAR AHORA</a>
+        </div>
+      `).join('');
+    })
+    .catch(error => {
+      console.error(error);
+      document.getElementById('productos-container').innerHTML = `
+        <div class="error">
+          <p>⚠️ Error crítico: ${error.message}</p>
+          <p>Contacta al equipo técnico con este código:</p>
+          <code>${btoa(error.stack)}</code>
+        </div>
+      `;
+    });
 </script>
