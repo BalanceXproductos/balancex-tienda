@@ -1,0 +1,54 @@
+{
+  "productos": [
+    {
+      "id": "",
+      "nombre": "Auriculares Lenovo XT88",
+      "categoria": "Electr?nica",
+      "precio_original": 8.99,
+      "margen": 0.4,
+      "precio_final": 12.59,
+      "imagen": "https://imgaz1.staticbg.com/thumb/gallery/oaupload/banggood/images/E8/EE/0d4ed0a9-98e4-423f-88f2-3cdc6d5b8c2c.jpg.webp",
+      "url_producto": "https://usa.banggood.com/es/search/auriculares-lenovo-xt88.html",
+      "stock": 19,
+      "estado": "Activo",
+      "actualizado": "2025-05-18T04:00:00.000Z",
+      "enlace_afiliado": "https://usa.banggood.com/es/search/auriculares-lenovo-xt88.html?p=N5012177744992202506&custlinkid=4725268",
+      "warehouse": "CN"
+    },
+    {
+      "id": "",
+      "nombre": "Reloj Inteligente con ECG",
+      "categoria": "Tecnolog?a",
+      "precio_original": 21.99,
+      "margen": 0.4,
+      "precio_final": 30.79,
+      "imagen": "https://imgaz1.staticbg.com/thumb/large/oaupload/banggood/images/D8/A9/83d5bdb9-3aac-4c1c-9b36-25b2f6fb7c0b.jpg.webp",
+      "url_producto": "https://usa.banggood.com/es/E600-1_47-inch-HD-Screen-ECG-Monitor-Heart-Rate-Blood-Pressure-SpO2-Monitor-Fitness-Tracker-160mAh-Battery-BT5_1-IP68-Waterproof-Smart-Watch-p-1981381.html?cur_warehouse=CN&ID=529069&rmmds=search",
+      "stock": 23,
+      "estado": "Activo",
+      "actualizado": "2025-05-18T04:00:00.000Z",
+      "enlace_afiliado": "https://usa.banggood.com/es/E600-1_47-inch-HD-Screen-ECG-Monitor-Heart-Rate-Blood-Pressure-SpO2-Monitor-Fitness-Tracker-160mAh-Battery-BT5_1-IP68-Waterproof-Smart-Watch-p-1981381.html?cur_warehouse=CN&ID=529069&rmmds=search&p=N5012177744992202506&custlinkid=4725267",
+      "warehouse": "CN"
+    },
+    {
+      "id": "",
+      "nombre": "Calefactor Port?til 1500W",
+      "categoria": "Invierno",
+      "precio_original": 37.99,
+      "margen": 0.4,
+      "precio_final": 53.186,
+      "imagen": "https://imgaz.staticbg.com/thumb/large/oaupload/banggood/images/CB/73/e3543c93-a7aa-4514-80b3-836c4a616877.jpeg.webp",
+      "url_producto": "https://usa.banggood.com/es/1500W-Remote-Control-Space-Heater-3-Gear-PTC-Ceramic-Heating-Long-Range-Remote-Adjustable-Thermostat-Compact-Electric-Heater-for-Home-Office-p-2020259.html?cur_warehouse=CN&ID=6296615&rmmds=search",
+      "stock": 51,
+      "estado": "Activo",
+      "actualizado": "",
+      "enlace_afiliado": "https://usa.banggood.com/es/1500W-Remote-Control-Space-Heater-3-Gear-PTC-Ceramic-Heating-Long-Range-Remote-Adjustable-Thermostat-Compact-Electric-Heater-for-Home-Office-p-2020259.html?cur_warehouse=CN&ID=6296615&rmmds=search&p=N5012177744992202506&custlinkid=4725266",
+      "warehouse": "CN"
+    }
+  ],
+  "meta": {
+    "ultima_actualizacion": "2025-06-14T00:27:23.657Z",
+    "moneda": "USD",
+    "plataforma": "Banggood"
+  }
+}
